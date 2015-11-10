@@ -55,14 +55,13 @@ void draw() {
     }
     triangle(x1[i]+10*cos(theta1[i]+5*PI/6),y1[i]-10*sin(theta1[i]+5*PI/6),x1[i]+10*cos(theta1[i]),y1[i]-10*sin(theta1[i]),x1[i]+10*cos(theta1[i]-5*PI/6),y1[i]-10*sin(theta1[i]-5*PI/6));
   }
-  theta2[num2-1] = atan((y2[num2-1]-mouseY)/(x2[num2-1]-mouseX));
   for(int i = 0; i < num2; i++) {
     fill(c2[i]);
-    x2[i] += vx1[i];
-    y2[i] += vy1[i];
+    x2[i] += vx2[i];
+    y2[i] += vy2[i];
     if(x2[i] > width) {
       x2[i] = 0;
-    } else if(x1[i] < 0) {
+    } else if(x2[i] < 0) {
       x2[i] = width;
     }
     if(y2[i] > height) {
@@ -82,6 +81,17 @@ void draw() {
     }
     if (keyCode == LEFT) {
       theta1[num1-1] += rotSpeed;
+    }
+  }
+  if (mousePressed) {
+    if (mouseButton == RIGHT) {
+      vx2[num2-1] += 0.25*cos(theta2[num2-1]);
+      vy2[num2-1] -= 0.25*sin(theta2[num2-1]);
+    }
+    if (mouseX < x2[num2-1]) {
+      theta2[num2-1] = (PI-atan((mouseY-y2[num2-1])/(mouseX-x2[num2-1])));
+    } else {
+      theta2[num2-1] = (atan((y2[num2-1]-mouseY)/(mouseX-x2[num2-1])));
     }
   }
 }
